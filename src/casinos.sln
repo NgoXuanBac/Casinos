@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{57A47BF2-A38C-4E91-844B-C9CB5D9EAADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpApiGateway", "ApiGateways\YarpApiGateway\YarpApiGateway.csproj", "{94620336-E64C-4D8F-AC7B-E87C90A7467E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{5FEF91E7-7E95-471D-951A-F866809EB268}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{5BD44401-159C-4EED-892A-9F904444BFD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{92B8AB43-F2A5-41D8-B87D-B0808FD237FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{0AD219A3-C9E5-46F5-A8A1-B044B93C6714}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{E30AC4DA-B57B-49AB-ADC5-7818813B0965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{1E0205D2-3C24-4885-BED0-5C303E33B562}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94620336-E64C-4D8F-AC7B-E87C90A7467E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94620336-E64C-4D8F-AC7B-E87C90A7467E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94620336-E64C-4D8F-AC7B-E87C90A7467E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94620336-E64C-4D8F-AC7B-E87C90A7467E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD44401-159C-4EED-892A-9F904444BFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD44401-159C-4EED-892A-9F904444BFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD44401-159C-4EED-892A-9F904444BFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD44401-159C-4EED-892A-9F904444BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0205D2-3C24-4885-BED0-5C303E33B562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0205D2-3C24-4885-BED0-5C303E33B562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0205D2-3C24-4885-BED0-5C303E33B562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0205D2-3C24-4885-BED0-5C303E33B562}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94620336-E64C-4D8F-AC7B-E87C90A7467E} = {57A47BF2-A38C-4E91-844B-C9CB5D9EAADC}
+		{5BD44401-159C-4EED-892A-9F904444BFD1} = {5FEF91E7-7E95-471D-951A-F866809EB268}
+		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714} = {5FEF91E7-7E95-471D-951A-F866809EB268}
+		{E30AC4DA-B57B-49AB-ADC5-7818813B0965} = {92B8AB43-F2A5-41D8-B87D-B0808FD237FE}
+		{1E0205D2-3C24-4885-BED0-5C303E33B562} = {E30AC4DA-B57B-49AB-ADC5-7818813B0965}
+	EndGlobalSection
+EndGlobal
