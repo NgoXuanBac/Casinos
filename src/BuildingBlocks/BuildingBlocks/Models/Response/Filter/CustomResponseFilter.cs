@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlocks.Response.Filters;
+namespace BuildingBlocks.Models.Response.Filter;
 
-public class StandardResponseFilter : IEndpointFilter
+public class CustomResponseFilter : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(
         EndpointFilterInvocationContext context,
         EndpointFilterDelegate next)
     {
         var result = await next(context);
-        if (result is ApiResponse) return result;
-        return new SuccessApiResponse(result);
+        if (result is Response) return result;
+        return new Success(result);
     }
 }

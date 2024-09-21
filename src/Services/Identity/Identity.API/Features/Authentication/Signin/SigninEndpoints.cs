@@ -1,0 +1,16 @@
+namespace Identity.API.Features.Authentication.Signin;
+public record SigninRequest(string Username, string Password);
+public record SigninResponse(string Token, bool Authenticated);
+public class SigninEndpoints : ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        app.MapPost("/auth/signin", async (SigninRequest request, ISender sender) =>
+        {
+            var command = request.Adapt<SigninCommand>();
+            var result = await sender.Send(command);
+            return Results.Ok(result.Adapt<SigninResponse>());
+        })
+        .WithName("Signin");
+    }
+}

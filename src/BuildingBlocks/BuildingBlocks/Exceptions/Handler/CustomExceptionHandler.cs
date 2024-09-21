@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Response;
+﻿using BuildingBlocks.Models.Response;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -61,7 +61,7 @@ public class CustomExceptionHandler
             problemDetails.Extensions.Add("errors", validationException.Errors);
         }
 
-        await context.Response.WriteAsJsonAsync(new ErrorApiResponse(problemDetails), cancellationToken: cancellationToken);
+        await context.Response.WriteAsJsonAsync(new Failure(problemDetails), cancellationToken: cancellationToken);
         return true;
     }
 }

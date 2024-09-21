@@ -1,3 +1,5 @@
+using Identity.API.Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
 
@@ -9,13 +11,15 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
+builder.Services.AddSingleton<TokenService>();
+
 builder.Services.AddMessageBroker(builder.Configuration, assembly);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 var app = builder.Build();
 app.MapGroup("/api")
-    .AddEndpointFilter<StandardResponseFilter>()
+    .AddEndpointFilter<CustomResponseFilter>()
     .MapCarter();
 
 app.UseExceptionHandler(options => { });

@@ -5,6 +5,6 @@ global using FluentValidation;
 global using BuildingBlocks.CQRS;
 global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.Exceptions.Handler;
-global using BuildingBlocks.Response.Filters;
+global using BuildingBlocks.Models.Response.Filter;
 global using BuildingBlocks.Messaging.MassTransit;
 
