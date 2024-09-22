@@ -11,6 +11,7 @@ public class RefreshEndpoints : ICarterModule
             var result = await sender.Send(command);
             return Results.Ok(result.Adapt<RefreshResponse>());
         })
+        .MapToApiVersion(1)
         .WithName("Refresh");
     }
 }

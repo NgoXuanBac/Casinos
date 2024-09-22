@@ -7,4 +7,4 @@ global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.Exceptions.Handler;
 global using BuildingBlocks.Models.Response.Filter;
 global using BuildingBlocks.Messaging.MassTransit;
-
+global using Asp.Versioning;

@@ -12,13 +12,26 @@ builder.Services.AddMediatR(config =>
 });
 
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddApiVersioning(options => { options.ReportApiVersions = true; })
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
 
 builder.Services.AddMessageBroker(builder.Configuration, assembly);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 var app = builder.Build();
-app.MapGroup("/api")
+
+var apiVersionSet = app.NewApiVersionSet()
+    .HasApiVersion(new ApiVersion(1))
+    .ReportApiVersions()
+    .Build();
+
+app.MapGroup("/api/v{version:apiVersion}")
+    .WithApiVersionSet(apiVersionSet)
     .AddEndpointFilter<CustomResponseFilter>()
     .MapCarter();
 

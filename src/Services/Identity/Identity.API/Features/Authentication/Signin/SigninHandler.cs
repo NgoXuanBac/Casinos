@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Identity.API.Infrastructure.Services;
+
 namespace Identity.API.Features.Authentication.Signin;
 public record SigninResult(string Token, bool Authenticated);
 public record SigninCommand(string Username, string Password) : ICommand<SigninResult>;
@@ -13,13 +16,19 @@ public class SigninCommandValidator
     }
 }
 
-public class SigninHandler
+public class SigninHandler(TokenService _tokenService)
     : ICommandHandler<SigninCommand, SigninResult>
 {
     public async Task<SigninResult> Handle(SigninCommand request,
         CancellationToken cancellationToken)
     {
-        await Task.Delay(10, cancellationToken);
-        return new SigninResult("my_token", true);
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, request.Username),
+        };
+
+        var token = _tokenService.GenerateToken(claims);
+        await Task.CompletedTask;
+        return new SigninResult(token, true);
     }
 }

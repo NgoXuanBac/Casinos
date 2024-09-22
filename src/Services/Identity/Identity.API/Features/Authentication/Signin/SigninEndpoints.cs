@@ -11,6 +11,7 @@ public class SigninEndpoints : ICarterModule
             var result = await sender.Send(command);
             return Results.Ok(result.Adapt<SigninResponse>());
         })
+        .MapToApiVersion(1)
         .WithName("Signin");
     }
 }

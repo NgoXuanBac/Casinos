@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Identity.API.Features.Authentication.Introspect;
 public record IntrospectRequest(string Token);
 public record IntrospectResponse(bool Valid);
@@ -13,6 +11,7 @@ public class IntrospectEndpoints : ICarterModule
             var result = await sender.Send(command);
             return Results.Ok(result.Adapt<IntrospectResponse>());
         })
+        .MapToApiVersion(1)
         .WithName("Introspect");
     }
 }
