@@ -1,16 +1,35 @@
 services:
+  distributedcache:
+    image: redis
+    container_name: distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
+
+  identitydb:
+    image: mcr.microsoft.com/mssql/server
+    container_name: identitydb
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=Pass@word"
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_identity:/var/opt/mssql
+    
   messagebroker: 
     image: rabbitmq:3-management-alpine
     container_name: messagebroker
     hostname: casinos-mq
-    restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
     ports:
       - 5672:5672
       - 15672:15672
-
+    
   yarpapigateway:
     image: ${DOCKER_REGISTRY-}yarpapigateway
     build:
@@ -33,17 +52,18 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__Database=Server=identitydb;Database=dbIdentity;User Id=sa;Password=Pass@word;TrustServerCertificate=True
       - MessageBroker__Host=amqp://casinos-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
     depends_on: 
+      - identitydb
       - messagebroker
     ports:
       - "6001:8080"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
-  
-
+volumes:
+  mssql_identity:
 

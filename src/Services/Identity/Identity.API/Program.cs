@@ -1,4 +1,6 @@
+using Identity.API.Infrastructure.Data;
 using Identity.API.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
@@ -12,6 +14,10 @@ builder.Services.AddMediatR(config =>
 });
 
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddDbContext<IdentityContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
+});
 builder.Services.AddApiVersioning(options => { options.ReportApiVersions = true; })
     .AddApiExplorer(options =>
     {
@@ -24,6 +30,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 var app = builder.Build();
+app.UseMigration();
 
 var apiVersionSet = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))
