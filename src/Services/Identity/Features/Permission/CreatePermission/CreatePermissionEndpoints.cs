@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Permission.CreatePermission;
+namespace Identity.Features.Permission.CreatePermission;
 
 public record CreatePermissionRequest(string Name, string Description, string Url, string Method);
 public class CreatePermissionEndpoints : ICarterModule

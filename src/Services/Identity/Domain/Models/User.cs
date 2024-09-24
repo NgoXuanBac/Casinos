@@ -1,5 +1,5 @@
-using Identity.API.Domain.Abstractions;
-namespace Identity.API.Domain.Models;
+using Identity.Domain.Abstractions;
+namespace Identity.Domain.Models;
 
 public class User : AuditableEntity
 {

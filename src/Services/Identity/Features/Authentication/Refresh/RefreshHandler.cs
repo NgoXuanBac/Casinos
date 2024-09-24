@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Refresh;
+namespace Identity.Features.Authentication.Refresh;
 public record RefreshResult(string Token, bool Authenticated);
 public record RefreshCommand(string Token) : ICommand<RefreshResult>;
 public class RefreshCommandValidator

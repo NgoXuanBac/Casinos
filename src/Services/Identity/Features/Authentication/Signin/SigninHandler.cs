@@ -1,11 +1,11 @@
 using System.Security.Claims;
 using System.Text.Json;
-using Identity.API.Common;
-using Identity.API.Infrastructure.Data;
-using Identity.API.Infrastructure.Services;
+using Identity.Common;
+using Identity.Infrastructure.Data;
+using Identity.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.API.Features.Authentication.Signin;
+namespace Identity.Features.Authentication.Signin;
 public record SigninResult(string Token, bool Authenticated);
 public record SigninCommand(string Email, string Password) : ICommand<SigninResult>;
 public class SigninCommandValidator

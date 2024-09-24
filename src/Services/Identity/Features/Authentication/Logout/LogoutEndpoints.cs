@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Logout;
+namespace Identity.Features.Authentication.Logout;
 public record LogoutRequest(string Token);
 public class LogoutEndpoints : ICarterModule
 {

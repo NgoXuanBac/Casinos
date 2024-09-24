@@ -1,4 +1,4 @@
-namespace Identity.API.Domain.Abstractions;
+namespace Identity.Domain.Abstractions;
 
 public abstract class AuditableEntity
 {

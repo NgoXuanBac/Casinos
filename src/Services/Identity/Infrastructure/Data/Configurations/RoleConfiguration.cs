@@ -1,8 +1,8 @@
-using Identity.API.Domain.Models;
+using Identity.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Identity.API.Infrastructure.Data.Configurations;
+namespace Identity.Infrastructure.Data.Configurations;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {

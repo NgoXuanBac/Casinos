@@ -1,6 +1,6 @@
-using Identity.API.Infrastructure.Services;
+using Identity.Infrastructure.Services;
 
-namespace Identity.API.Features.Authentication.Introspect;
+namespace Identity.Features.Authentication.Introspect;
 
 public record IntrospectResult(bool Valid);
 public record IntrospectCommand(string Token) : ICommand<IntrospectResult>;

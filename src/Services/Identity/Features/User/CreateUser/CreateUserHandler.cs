@@ -1,8 +1,8 @@
-using Identity.API.Common;
-using Identity.API.Infrastructure.Data;
+using Identity.Common;
+using Identity.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.API.Features.User.CreateUser;
+namespace Identity.Features.User.CreateUser;
 
 public record CreateUserCommand(string Email, string Password) : ICommand;
 

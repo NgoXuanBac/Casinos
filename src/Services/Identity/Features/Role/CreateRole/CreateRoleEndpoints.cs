@@ -1,5 +1,5 @@
 
-namespace Identity.API.Features.Role.CreateRole;
+namespace Identity.Features.Role.CreateRole;
 
 public record CreateRoleRequest(string Name, string Description);
 

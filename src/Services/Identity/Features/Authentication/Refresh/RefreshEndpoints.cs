@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Refresh;
+namespace Identity.Features.Authentication.Refresh;
 public record RefreshRequest(string Token);
 public record RefreshResponse(string Token, bool Authenticated);
 public class RefreshEndpoints : ICarterModule

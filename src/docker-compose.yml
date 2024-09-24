@@ -17,8 +17,8 @@ services:
       - "1433:1433"
     volumes:
       - mssql_identity:/var/opt/mssql
-    
-  messagebroker: 
+
+  messagebroker:
     image: rabbitmq:3-management-alpine
     container_name: messagebroker
     hostname: casinos-mq
@@ -29,7 +29,7 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    
+
   yarpapigateway:
     image: ${DOCKER_REGISTRY-}yarpapigateway
     build:
@@ -46,9 +46,9 @@ services:
 
   identity.api:
     image: ${DOCKER_REGISTRY-}identity
-    build: 
+    build:
       context: .
-      dockerfile: Services/Identity/Identity.API/Dockerfile
+      dockerfile: Services/Identity/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
@@ -56,7 +56,7 @@ services:
       - MessageBroker__Host=amqp://casinos-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
-    depends_on: 
+    depends_on:
       - identitydb
       - messagebroker
     ports:
@@ -66,4 +66,3 @@ services:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 volumes:
   mssql_identity:
-

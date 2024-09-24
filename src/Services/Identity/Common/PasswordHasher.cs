@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Identity.API.Common;
+namespace Identity.Common;
 
 public static class PasswordHasher
 {

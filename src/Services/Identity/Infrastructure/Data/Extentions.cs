@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.API.Infrastructure.Data;
+namespace Identity.Infrastructure.Data;
 
 public static class Extentions
 {

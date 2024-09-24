@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Logout;
+namespace Identity.Features.Authentication.Logout;
 public record LogoutCommand(string Token) : ICommand;
 public class LogoutCommandValidator
     : AbstractValidator<LogoutCommand>

@@ -1,7 +1,7 @@
 
-using Identity.API.Infrastructure.Data;
+using Identity.Infrastructure.Data;
 
-namespace Identity.API.Features.Role.CreateRole;
+namespace Identity.Features.Role.CreateRole;
 
 public record CreateRoleCommand(string Name, string Description) : ICommand;
 

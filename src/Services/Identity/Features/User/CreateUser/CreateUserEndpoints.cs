@@ -1,4 +1,4 @@
-namespace Identity.API.Features.User.CreateUser;
+namespace Identity.Features.User.CreateUser;
 
 public record CreateUserRequest(string Email, string Password);
 public class CreateUserEndpoints : ICarterModule

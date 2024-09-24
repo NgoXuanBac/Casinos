@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Signin;
+namespace Identity.Features.Authentication.Signin;
 public record SigninRequest(string Email, string Password);
 public record SigninResponse(string Token, bool Authenticated);
 public class SigninEndpoints : ICarterModule

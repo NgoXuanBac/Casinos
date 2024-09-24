@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Identity.API.Infrastructure.Services;
+namespace Identity.Infrastructure.Services;
 
 public record TokenConfig(string SigningKey, double TokenValidityInMinutes,
     double RefreshTokenValidityInDays);

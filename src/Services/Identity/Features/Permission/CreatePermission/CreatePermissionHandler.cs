@@ -1,6 +1,6 @@
-using Identity.API.Infrastructure.Data;
+using Identity.Infrastructure.Data;
 
-namespace Identity.API.Features.Permission.CreatePermission;
+namespace Identity.Features.Permission.CreatePermission;
 public record CreatePermissionCommand(string Name, string Description, string Url, string Method) : ICommand;
 public class CreatePermissionCommandValidator : AbstractValidator<CreatePermissionCommand>
 {

@@ -1,4 +1,4 @@
-namespace Identity.API.Features.Authentication.Introspect;
+namespace Identity.Features.Authentication.Introspect;
 public record IntrospectRequest(string Token);
 public record IntrospectResponse(bool Valid);
 public class IntrospectEndpoints : ICarterModule

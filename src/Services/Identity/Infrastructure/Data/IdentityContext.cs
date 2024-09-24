@@ -1,8 +1,8 @@
 using System.Reflection;
-using Identity.API.Domain.Models;
+using Identity.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.API.Infrastructure.Data;
+namespace Identity.Infrastructure.Data;
 
 public class IdentityContext(DbContextOptions<IdentityContext> options) : DbContext(options)
 {
