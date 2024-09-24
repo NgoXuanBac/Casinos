@@ -1,10 +1,10 @@
-using Identity.API.Common;
-namespace Identity.API.Domain.Entity;
+using Identity.API.Domain.Abstractions;
+namespace Identity.API.Domain.Models;
 
 public class User : AuditableEntity
 {
     public Guid Id { get; set; }
-    public required string Username { get; set; }
+    public required string Email { get; set; }
     public required string Password { get; set; }
     public virtual ICollection<Role> Roles { get; set; } = [];
 }

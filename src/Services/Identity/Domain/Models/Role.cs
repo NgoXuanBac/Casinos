@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Identity.API.Common;
+using Identity.API.Domain.Abstractions;
 
-namespace Identity.API.Domain.Entity;
+namespace Identity.API.Domain.Models;
 
 public class Role : AuditableEntity
 {

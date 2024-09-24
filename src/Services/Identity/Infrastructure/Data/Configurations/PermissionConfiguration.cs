@@ -1,4 +1,4 @@
-using Identity.API.Domain.Entity;
+using Identity.API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Identity.API.Infrastructure.Data.Configurations;

@@ -1,5 +1,5 @@
 using System.Reflection;
-using Identity.API.Domain.Entity;
+using Identity.API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.API.Infrastructure.Data;
@@ -7,6 +7,8 @@ namespace Identity.API.Infrastructure.Data;
 public class IdentityContext(DbContextOptions<IdentityContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

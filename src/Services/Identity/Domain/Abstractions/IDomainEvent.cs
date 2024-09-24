@@ -1,4 +1,4 @@
-namespace Identity.API.Common;
+namespace Identity.API.Domain.Abstractions;
 
 public interface IDomainEvent : INotification
 {
