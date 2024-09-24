@@ -19,7 +19,7 @@ public class CreatePermissionHandler(IdentityContext _context)
     public async Task<Unit> Handle(CreatePermissionCommand request,
         CancellationToken cancellationToken)
     {
-        var permission = new Domain.Entities.Permission
+        var permission = new Domain.Models.Permission
         {
             Name = request.Name,
             Description = request.Description,

@@ -29,7 +29,7 @@ public class CreateUserHandler(IdentityContext _context)
         var hashPassword = PasswordHasher.HashPassword(request.Password);
         var role = await _context.Roles
             .FirstOrDefaultAsync(x => x.Name == "DEFAULT_USER", cancellationToken);
-        var user = new Domain.Entities.User
+        var user = new Domain.Models.User
         {
             Id = Guid.NewGuid(),
             Email = request.Email,

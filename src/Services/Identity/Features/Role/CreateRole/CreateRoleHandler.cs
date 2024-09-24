@@ -18,7 +18,7 @@ public class CreateRoleHandler(IdentityContext _context) : ICommandHandler<Creat
 {
     public async Task<Unit> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = new Domain.Entities.Role
+        var role = new Domain.Models.Role
         {
             Name = request.Name,
             Description = request.Description
