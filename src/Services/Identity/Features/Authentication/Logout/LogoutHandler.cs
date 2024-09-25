@@ -15,7 +15,7 @@ public class LogoutHandler
     public async Task<Unit> Handle(LogoutCommand request,
         CancellationToken cancellationToken)
     {
-        await Task.Delay(10, cancellationToken);
+        await Task.CompletedTask;
         return Unit.Value;
     }
 }

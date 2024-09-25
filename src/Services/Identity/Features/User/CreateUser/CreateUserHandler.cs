@@ -34,6 +34,7 @@ public class CreateUserHandler(IdentityContext _context)
             Id = Guid.NewGuid(),
             Email = request.Email,
             Password = hashPassword,
+            Created = DateTime.Now,
             Roles = role != null ? [role] : []
         };
         await _context.Users.AddAsync(user, cancellationToken);

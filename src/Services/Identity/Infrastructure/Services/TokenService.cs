@@ -1,6 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
+using Identity.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Identity.Infrastructure.Services;
@@ -18,6 +20,18 @@ public class TokenService
 
         _key = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(_config.SigningKey));
+    }
+    public string GenerateToken(User user)
+    {
+        var permissions = user.Roles
+            .SelectMany(r => r.Permissions)
+            .Select(p => new { p.Name, p.Url, p.Method });
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Email, user.Email),
+            new("permissions", JsonSerializer.Serialize(permissions))
+        };
+        return GenerateToken(claims);
     }
     public string GenerateToken(List<Claim> claims)
     {
