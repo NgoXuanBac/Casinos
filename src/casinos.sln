@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Services\Identity\Identity.csproj", "{6D971208-9B1F-49C0-9F56-4D403C51E1D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Auth", "BuildingBlocks\BuildingBlocks.Auth\BuildingBlocks.Auth.csproj", "{E94C926E-971F-45EA-A087-23E724396BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6D971208-9B1F-49C0-9F56-4D403C51E1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D971208-9B1F-49C0-9F56-4D403C51E1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D971208-9B1F-49C0-9F56-4D403C51E1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94C926E-971F-45EA-A087-23E724396BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94C926E-971F-45EA-A087-23E724396BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94C926E-971F-45EA-A087-23E724396BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94C926E-971F-45EA-A087-23E724396BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{5BD44401-159C-4EED-892A-9F904444BFD1} = {5FEF91E7-7E95-471D-951A-F866809EB268}
 		{0AD219A3-C9E5-46F5-A8A1-B044B93C6714} = {5FEF91E7-7E95-471D-951A-F866809EB268}
 		{6D971208-9B1F-49C0-9F56-4D403C51E1D3} = {92B8AB43-F2A5-41D8-B87D-B0808FD237FE}
+		{E94C926E-971F-45EA-A087-23E724396BC9} = {5FEF91E7-7E95-471D-951A-F866809EB268}
 	EndGlobalSection
 EndGlobal

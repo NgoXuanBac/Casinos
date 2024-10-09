@@ -1,6 +1,6 @@
 namespace Identity.Features.Authentication.Signin;
 public record SigninRequest(string Email, string Password);
-public record SigninResponse(string Token, bool Authenticated);
+public record SigninResponse(string AccessToken);
 public class SigninEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)

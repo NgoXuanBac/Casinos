@@ -12,6 +12,7 @@ public class CreatePermissionEndpoints : ICarterModule
             return Results.Created();
         })
         .MapToApiVersion(1)
+        .RequirePermission()
         .WithName("CreatePermission");
     }
 }

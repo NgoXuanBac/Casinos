@@ -14,7 +14,7 @@ public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
     }
 }
 
-public class CreateRoleHandler(IdentityContext _context) : ICommandHandler<CreateRoleCommand>
+public class CreateRoleHandler(IdentityContext context) : ICommandHandler<CreateRoleCommand>
 {
     public async Task<Unit> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
@@ -23,8 +23,8 @@ public class CreateRoleHandler(IdentityContext _context) : ICommandHandler<Creat
             Name = request.Name,
             Description = request.Description
         };
-        await _context.Roles.AddAsync(role, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.Roles.AddAsync(role, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 }

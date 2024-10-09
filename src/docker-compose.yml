@@ -53,6 +53,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__Database=Server=identitydb;Database=dbIdentity;User Id=sa;Password=Pass@word;TrustServerCertificate=True
+      - ConnectionStrings__Redis=distributedcache:6379
       - MessageBroker__Host=amqp://casinos-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest

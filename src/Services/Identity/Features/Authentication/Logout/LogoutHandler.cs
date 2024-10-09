@@ -1,3 +1,7 @@
+using System.IdentityModel.Tokens.Jwt;
+using Identity.Infrastructure.Security;
+using Microsoft.Extensions.Caching.Distributed;
+
 namespace Identity.Features.Authentication.Logout;
 public record LogoutCommand(string Token) : ICommand;
 public class LogoutCommandValidator
@@ -9,13 +13,28 @@ public class LogoutCommandValidator
     }
 }
 
-public class LogoutHandler
+public class LogoutHandler(
+    TokenGenerator tokenGenerator,
+    IDistributedCache cache)
     : ICommandHandler<LogoutCommand>
 {
     public async Task<Unit> Handle(LogoutCommand request,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
+        var principal = tokenGenerator.VerifyJWT(request.Token, true);
+        var exp = principal.Claims
+            .FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp)?
+            .Value;
+        var tokenId = principal.Claims
+            .FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti)?
+            .Value;
+        if (long.TryParse(exp, out long ticks))
+        {
+            await cache.SetStringAsync($"blacklist:{tokenId}", "1", new()
+            {
+                AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(ticks).UtcDateTime
+            }, cancellationToken);
+        }
         return Unit.Value;
     }
 }

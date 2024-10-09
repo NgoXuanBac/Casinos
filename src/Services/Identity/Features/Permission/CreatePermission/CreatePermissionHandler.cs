@@ -13,7 +13,7 @@ public class CreatePermissionCommandValidator : AbstractValidator<CreatePermissi
     }
 }
 
-public class CreatePermissionHandler(IdentityContext _context)
+public class CreatePermissionHandler(IdentityContext context)
     : ICommandHandler<CreatePermissionCommand>
 {
     public async Task<Unit> Handle(CreatePermissionCommand request,
@@ -23,11 +23,11 @@ public class CreatePermissionHandler(IdentityContext _context)
         {
             Name = request.Name,
             Description = request.Description,
-            Url = request.Url,
+            Path = request.Url,
             Method = request.Method
         };
-        await _context.Permissions.AddAsync(permission, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.Permissions.AddAsync(permission, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 }

@@ -1,11 +1,14 @@
-using Identity.Common;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text.Json;
 using Identity.Infrastructure.Data;
-using Identity.Infrastructure.Services;
+using Identity.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Features.Authentication.Signin;
-public record SigninResult(string Token, bool Authenticated);
-public record SigninCommand(string Email, string Password) : ICommand<SigninResult>;
+public record SigninResult(string AccessToken);
+public record SigninCommand(string Email, string Password)
+    : ICommand<SigninResult>;
 public class SigninCommandValidator
     : AbstractValidator<SigninCommand>
 {
@@ -19,21 +22,38 @@ public class SigninCommandValidator
     }
 }
 
-public class SigninHandler(TokenService _tokenService, IdentityContext _context)
+public class SigninHandler(TokenGenerator tokenGenerator, IdentityContext context, 
+    PasswordHasher passwordHasher)
     : ICommandHandler<SigninCommand, SigninResult>
 {
     public async Task<SigninResult> Handle(SigninCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await _context.Users
+        var user = await context.Users
             .Include(u => u.Roles).ThenInclude(r => r.Permissions)
-            .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken)
-                ?? throw new Exception("User not found");
+                ?? throw new Exception("Email is not found");
 
-        if (!PasswordHasher.VerifyPassword(request.Password, user.Password))
-            throw new Exception($"Invalid password");
-        var token = _tokenService.GenerateToken(user);
-        return new SigninResult(token, true);
+        if (!passwordHasher.VerifyPassword(request.Password, user.Password))
+            throw new Exception("Password is incorrect");
+
+        var permissions = user.Roles
+            .SelectMany(r => r.Permissions)
+            .Select(p => new { p.Name, p.Path, p.Method });
+
+        var tokenId = Guid.NewGuid().ToString();
+
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Jti, tokenId),
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email),
+            new("permissions", JsonSerializer.Serialize(permissions))
+        };
+        
+        var accessToken = tokenGenerator.GenerateJWT(claims);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return new SigninResult(accessToken);
     }
 }

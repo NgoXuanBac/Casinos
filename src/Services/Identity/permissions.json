@@ -1,0 +1,20 @@
+[
+    {
+      "Name": "permission.create",
+      "Description": "This permission is required to create new permission.",
+      "Url": "/permissions/create",
+      "Method": "POST"
+    },
+    {
+      "Name": "permission.delete",
+      "Description": "This permission is required to delete permission.",
+      "Url": "/permissions/{name}",
+      "Method": "DELETE"
+    },
+    {
+      "Name": "permission.getall",
+      "Description": "This permission is required to get all permissions.",
+      "Url": "/permissions",
+      "Method": "GET"
+    }
+]

@@ -1,5 +1,5 @@
-using Identity.Common;
 using Identity.Infrastructure.Data;
+using Identity.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Features.User.CreateUser;
@@ -20,14 +20,14 @@ public class CreateUserCommandValidator
     }
 }
 
-public class CreateUserHandler(IdentityContext _context)
+public class CreateUserHandler(IdentityContext context, PasswordHasher passwordHasher)
     : ICommandHandler<CreateUserCommand>
 {
     public async Task<Unit> Handle(CreateUserCommand request,
         CancellationToken cancellationToken)
     {
-        var hashPassword = PasswordHasher.HashPassword(request.Password);
-        var role = await _context.Roles
+        var hashPassword = passwordHasher.HashPassword(request.Password);
+        var role = await context.Roles
             .FirstOrDefaultAsync(x => x.Name == "DEFAULT_USER", cancellationToken);
         var user = new Domain.Models.User
         {
@@ -37,8 +37,8 @@ public class CreateUserHandler(IdentityContext _context)
             Created = DateTime.Now,
             Roles = role != null ? [role] : []
         };
-        await _context.Users.AddAsync(user, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.Users.AddAsync(user, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 }

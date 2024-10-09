@@ -10,7 +10,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
         builder.ToTable("tblPermissions").HasKey(x => x.Name);
         builder.Property(x => x.Name).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(500);
-        builder.Property(x => x.Url).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.Path).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Method).HasMaxLength(10).IsRequired();
     }
 }

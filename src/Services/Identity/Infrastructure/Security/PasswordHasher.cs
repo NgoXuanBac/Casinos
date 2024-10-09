@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Identity.Common;
+namespace Identity.Infrastructure.Security;
 
-public static class PasswordHasher
+public class PasswordHasher
 {
-    public static string HashPassword(string password)
+    public string HashPassword(string password)
     {
         var salt = Guid.NewGuid().ToByteArray();
         var passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -13,7 +13,7 @@ public static class PasswordHasher
         return Convert.ToBase64String(salt.Concat(hash).ToArray());
     }
 
-    public static bool VerifyPassword(string password, string hash)
+    public bool VerifyPassword(string password, string hash)
     {
         var hashBytes = Convert.FromBase64String(hash);
         var salt = hashBytes.Take(16).ToArray();

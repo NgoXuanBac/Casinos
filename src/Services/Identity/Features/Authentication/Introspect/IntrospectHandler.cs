@@ -1,4 +1,4 @@
-using Identity.Infrastructure.Services;
+using Identity.Infrastructure.Security;
 
 namespace Identity.Features.Authentication.Introspect;
 
@@ -14,7 +14,7 @@ public class IntrospectCommandValidator
     }
 }
 
-public class IntrospectHandler(TokenService _tokenService)
+public class IntrospectHandler(TokenGenerator tokenGenerator)
     : ICommandHandler<IntrospectCommand, IntrospectResult>
 {
     public async Task<IntrospectResult> Handle(IntrospectCommand request,
@@ -24,7 +24,7 @@ public class IntrospectHandler(TokenService _tokenService)
         bool valid = true;
         try
         {
-            _tokenService.VerifyToken(token);
+            tokenGenerator.VerifyJWT(token);
         }
         catch (Exception)
         {

@@ -1,5 +1,5 @@
 using Identity.Infrastructure.Data;
-using Identity.Infrastructure.Services;
+using Identity.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,11 +13,14 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
-builder.Services.AddSingleton<TokenService>();
+builder.Services.AddSingleton<TokenGenerator>();
+builder.Services.AddSingleton<PasswordHasher>();
+
 builder.Services.AddDbContext<IdentityContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
 });
+
 builder.Services.AddApiVersioning(options => { options.ReportApiVersions = true; })
     .AddApiExplorer(options =>
     {
@@ -28,9 +31,13 @@ builder.Services.AddApiVersioning(options => { options.ReportApiVersions = true;
 builder.Services.AddMessageBroker(builder.Configuration, assembly);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddValidatorsFromAssembly(assembly);
+builder.Services.AddAuthentication(builder.Configuration);
 
 var app = builder.Build();
 app.UseMigration();
+app.UseExceptionHandler(options => { });
+app.UseAuthentication();
+app.UseCustomAuthorization();
 
 var apiVersionSet = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))
@@ -42,5 +49,5 @@ app.MapGroup("/api/v{version:apiVersion}")
     .AddEndpointFilter<CustomResponseFilter>()
     .MapCarter();
 
-app.UseExceptionHandler(options => { });
+
 app.Run();
