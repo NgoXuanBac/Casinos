@@ -28,13 +28,12 @@ public class CreateUserHandler(IdentityContext context, PasswordHasher passwordH
     {
         var hashPassword = passwordHasher.HashPassword(request.Password);
         var role = await context.Roles
-            .FirstOrDefaultAsync(x => x.Name == "DEFAULT_USER", cancellationToken);
+            .FirstOrDefaultAsync(x => x.Name == "base.user", cancellationToken);
         var user = new Domain.Models.User
         {
             Id = Guid.NewGuid(),
             Email = request.Email,
             Password = hashPassword,
-            Created = DateTime.Now,
             Roles = role != null ? [role] : []
         };
         await context.Users.AddAsync(user, cancellationToken);

@@ -10,6 +10,7 @@ public class LogoutEndpoints : ICarterModule
             await sender.Send(command);
             return Results.Ok();
         })
+        .RequirePermission()
         .MapToApiVersion(1)
         .WithName("Logout");
     }

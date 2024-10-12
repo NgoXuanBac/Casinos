@@ -21,7 +21,7 @@ public class CreateRoleHandler(IdentityContext context) : ICommandHandler<Create
         var role = new Domain.Models.Role
         {
             Name = request.Name,
-            Description = request.Description
+            Description = request.Description,
         };
         await context.Roles.AddAsync(role, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);

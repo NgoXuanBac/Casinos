@@ -1,8 +1,8 @@
 using System.Text;
+using BuildingBlocks.Auth.Attributes;
 using BuildingBlocks.Auth.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,15 +13,11 @@ namespace BuildingBlocks.Auth;
 public record TokenConfig(string SigningKey,
     double AccessTokenExp);
 
-[AttributeUsage(AttributeTargets.Method)]
-public class RequirePermissionAttribute : Attribute;
-
-[AttributeUsage(AttributeTargets.Method)]
-public class RequireAuthenticationAttribute : Attribute;
 
 public static class Extentions
 {
-    public static IServiceCollection AddAuthentication(this IServiceCollection services,
+    public static IServiceCollection AddAuthentication(
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         var tokenConfig = configuration.GetSection(nameof(TokenConfig))
@@ -67,17 +63,6 @@ public static class Extentions
     {
         builder.Add(endpointBuilder =>
             endpointBuilder.Metadata.Add(new RequirePermissionAttribute())
-        );
-
-        return builder;
-    }
-
-
-    public static TBuilder RequireAuthentication<TBuilder>(this TBuilder builder)
-        where TBuilder : IEndpointConventionBuilder
-    {
-        builder.Add(endpointBuilder =>
-            endpointBuilder.Metadata.Add(new RequireAuthenticationAttribute())
         );
 
         return builder;

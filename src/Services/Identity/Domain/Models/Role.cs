@@ -3,7 +3,7 @@ using Identity.Domain.Abstractions;
 
 namespace Identity.Domain.Models;
 
-public class Role : AuditableEntity
+public class Role
 {
     public required string Name { get; set; }
     public string? Description { get; set; }

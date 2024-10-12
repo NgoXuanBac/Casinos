@@ -1,10 +1,11 @@
 using System.Text.Json;
+using BuildingBlocks.Auth.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 namespace BuildingBlocks.Auth.Middlewares;
 
-record Permission(string Name, string Url, string Method);
+record Permission(string Name, string Path, string Method);
 
 public class AuthorizationMiddleware(
     RequestDelegate next)
@@ -38,10 +39,11 @@ public class AuthorizationMiddleware(
             .FirstOrDefault(x => x.Type == "permissions")?
             .Value;
 
+
         var permissions = permissionsClaim != null
             ? JsonSerializer.Deserialize<IEnumerable<Permission>>(permissionsClaim) ?? [] : [];
-
-        var hasPermission = permissions.Any(x => string.Equals(path, x.Url, StringComparison.OrdinalIgnoreCase)
+    
+        var hasPermission = permissions.Any(x => string.Equals(path, x.Path, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(method, x.Method, StringComparison.OrdinalIgnoreCase));
 
         if (!hasPermission)
