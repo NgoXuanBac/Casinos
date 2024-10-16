@@ -4,64 +4,66 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace BuildingBlocks.Exceptions.Handler;
-public class CustomExceptionHandler
-    (ILogger<CustomExceptionHandler> logger)
-    : IExceptionHandler
+namespace BuildingBlocks.Exceptions.Handler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
+    public class CustomExceptionHandler
+        (ILogger<CustomExceptionHandler> logger)
+        : IExceptionHandler
     {
-        logger.LogError(
-            "Error Message: {exceptionMessage}, Time of occurrence {time}",
-            exception.Message, DateTime.UtcNow);
-
-        (string detail, string title, int statusCode) = exception switch
+        public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
         {
-            InternalServerException =>
-            (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError
-            ),
-            ValidationException =>
-            (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status400BadRequest
-            ),
-            BadRequestException =>
-            (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status400BadRequest
-            ),
-            NotFoundException =>
-            (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status404NotFound
-            ),
-            _ =>
-            (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError
-            )
-        };
+            logger.LogError(
+                "Error Message: {exceptionMessage}, Time of occurrence {time}",
+                exception.Message, DateTime.UtcNow);
 
-        var problemDetails = new ProblemDetails
-        {
-            Title = title,
-            Detail = detail,
-            Status = statusCode
-        };
+            (string detail, string title, int statusCode) = exception switch
+            {
+                InternalServerException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError
+                ),
+                ValidationException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+                BadRequestException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+                NotFoundException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    context.Response.StatusCode = StatusCodes.Status404NotFound
+                ),
+                _ =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError
+                )
+            };
 
-        if (exception is ValidationException validationException)
-        {
-            problemDetails.Extensions.Add("errors", validationException.Errors);
+            var problemDetails = new ProblemDetails
+            {
+                Title = title,
+                Detail = detail,
+                Status = statusCode
+            };
+
+            if (exception is ValidationException validationException)
+            {
+                problemDetails.Extensions.Add("errors", validationException.Errors);
+            }
+
+            await context.Response.WriteAsJsonAsync(new Failure(problemDetails), cancellationToken: cancellationToken);
+            return true;
         }
-
-        await context.Response.WriteAsJsonAsync(new Failure(problemDetails), cancellationToken: cancellationToken);
-        return true;
     }
 }

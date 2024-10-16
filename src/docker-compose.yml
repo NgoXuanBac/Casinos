@@ -50,7 +50,7 @@ services:
     image: ${DOCKER_REGISTRY-}identity
     build:
       context: .
-      dockerfile: Services/Identity/Dockerfile
+      dockerfile: Services/Identity/Identity.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080

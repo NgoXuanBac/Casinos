@@ -1,2 +1,4 @@
-﻿namespace BuildingBlocks.Models.Pagination;
-public record PaginationRequest(int PageIndex = 0, int PageSize = 10);
+﻿namespace BuildingBlocks.Models.Pagination
+{
+    public record PaginationRequest(int PageIndex = 0, int PageSize = 10);
+}

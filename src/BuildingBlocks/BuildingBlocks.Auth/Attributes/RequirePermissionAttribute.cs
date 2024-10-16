@@ -1,4 +1,5 @@
-namespace BuildingBlocks.Auth.Attributes;
-
-[AttributeUsage(AttributeTargets.Method)]
-public class RequirePermissionAttribute : Attribute;
+namespace BuildingBlocks.Auth.Attributes
+{
+    [AttributeUsage(AttributeTargets.Method)]
+    public class RequirePermissionAttribute : Attribute;
+}
