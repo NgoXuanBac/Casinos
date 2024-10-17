@@ -40,7 +40,7 @@ namespace Identity.API.Features.Authentication.Signin
 
             var permissions = user.Roles
                 .SelectMany(r => r.Permissions)
-                .Select(p => new { p.Name, p.Path, p.Method });
+                .Select(p => new { p.Name, p.Endpoint.Path, p.Endpoint.Method });
 
             var tokenId = Guid.NewGuid().ToString();
 

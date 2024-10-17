@@ -1,3 +1,4 @@
+using Identity.API.Domain.ValueObjects;
 using Identity.API.Infrastructure.Data;
 
 namespace Identity.API.Features.Role.CreateRole
@@ -20,7 +21,7 @@ namespace Identity.API.Features.Role.CreateRole
             var role = new Domain.Models.Role
             {
                 Name = request.Name,
-                Description = request.Description,
+                Description = Description.Of(request.Description),
             };
             await context.Roles.AddAsync(role, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Identity.Infrastructure.Data.Migrations
+namespace Identity.API.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -16,9 +16,9 @@ namespace Identity.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Method = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                    Description_Value = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Endpoint_Method = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Endpoint_Path = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,7 @@ namespace Identity.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    Description_Value = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {

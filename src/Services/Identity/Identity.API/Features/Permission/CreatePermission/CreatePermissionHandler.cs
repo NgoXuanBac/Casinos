@@ -1,3 +1,5 @@
+using Identity.API.Domain.Enums;
+using Identity.API.Domain.ValueObjects;
 using Identity.API.Infrastructure.Data;
 
 namespace Identity.API.Features.Permission.CreatePermission
@@ -23,9 +25,8 @@ namespace Identity.API.Features.Permission.CreatePermission
             var permission = new Domain.Models.Permission
             {
                 Name = request.Name,
-                Description = request.Description,
-                Path = request.Url,
-                Method = request.Method
+                Description = Description.Of(request.Description),
+                Endpoint = ApiEndpoint.Of(request.Url, Method.Get)
             };
             await context.Permissions.AddAsync(permission, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
