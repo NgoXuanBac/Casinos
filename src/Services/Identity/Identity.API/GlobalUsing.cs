@@ -1,11 +1,5 @@
 global using Carter;
 global using Mapster;
 global using MediatR;
-global using FluentValidation;
-global using BuildingBlocks.CQRS;
-global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.Auth;
-global using BuildingBlocks.Exceptions.Handler;
-global using BuildingBlocks.Models.Response.Filter;
-global using BuildingBlocks.Messaging.MassTransit;
 global using Asp.Versioning;
