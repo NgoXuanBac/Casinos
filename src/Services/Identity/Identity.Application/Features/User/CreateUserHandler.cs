@@ -28,7 +28,7 @@ namespace Identity.Application.Features.User
         {
             var hashPassword = passwordHasher.HashPassword(request.Password);
             var role = await context.Roles
-                .FirstOrDefaultAsync(x => x.Name == RoleName.Of("base.user"), cancellationToken);
+                .FirstOrDefaultAsync(x => x.Name == RoleName.Of("user.base"), cancellationToken);
             var user = new Domain.Models.User
             {
                 Id = Guid.NewGuid(),
