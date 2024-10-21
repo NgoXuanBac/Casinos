@@ -14,8 +14,8 @@ public record ApiEndpoint
 
     public static ApiEndpoint Of(string path, Method method)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(path);
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(path.Length, MAX_PATH_LENGTH);
+        ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(Path));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(path.Length, MAX_PATH_LENGTH, nameof(Path));
         return new ApiEndpoint(path, method.ToString());
     }
 }

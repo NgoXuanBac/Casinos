@@ -9,8 +9,8 @@ public record PermissionName
 
     public static PermissionName Of(string value)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH);
+        ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(PermissionName));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH, nameof(PermissionName));
         return new PermissionName(value);
     }
 }

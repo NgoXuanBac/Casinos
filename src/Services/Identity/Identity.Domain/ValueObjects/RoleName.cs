@@ -9,8 +9,8 @@ public record RoleName
 
     public static RoleName Of(string value)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH);
+        ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(RoleName));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH, nameof(RoleName));
         return new RoleName(value);
     }
 

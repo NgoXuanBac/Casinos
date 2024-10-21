@@ -11,16 +11,16 @@ public partial record Email
         Value = value;
     }
 
-    public static Email Of(string email)
+    public static Email Of(string value)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(email);
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(email.Length, MAX_LENGTH);
+        ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Email));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH, nameof(Email));
 
 
-        if (!EmailRegex().IsMatch(email))
+        if (!EmailRegex().IsMatch(value))
             throw new ArgumentException("Invalid email format.");
 
-        return new Email(email);
+        return new Email(value);
     }
 
     [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "en-US")]

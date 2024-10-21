@@ -9,8 +9,8 @@ public record Description
 
     public static Description Of(string value)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH);
+        ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Description));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, MAX_LENGTH, nameof(Description));
         return new Description(value);
     }
 }

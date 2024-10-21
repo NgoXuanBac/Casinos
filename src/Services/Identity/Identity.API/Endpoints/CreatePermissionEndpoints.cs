@@ -2,7 +2,7 @@ using Identity.Application.Features.Permission;
 
 namespace Identity.API.Endpoints
 {
-    public record CreatePermissionRequest(string Name, string Description, string Url, string Method);
+    public record CreatePermissionRequest(string Name, string Description, string Url, int Method);
     public class CreatePermissionEndpoints : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)

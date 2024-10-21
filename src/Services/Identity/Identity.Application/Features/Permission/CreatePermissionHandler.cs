@@ -4,7 +4,7 @@ using Identity.Domain.Enums;
 
 namespace Identity.Application.Features.Permission
 {
-    public record CreatePermissionCommand(string Name, string Description, string Url, string Method) : ICommand;
+    public record CreatePermissionCommand(string Name, string Description, string Url, int Method) : ICommand;
     public class CreatePermissionCommandValidator : AbstractValidator<CreatePermissionCommand>
     {
         public CreatePermissionCommandValidator()
@@ -26,7 +26,7 @@ namespace Identity.Application.Features.Permission
             {
                 Name = PermissionName.Of(request.Name),
                 Description = Description.Of(request.Description),
-                Endpoint = ApiEndpoint.Of(request.Url, Method.Get)
+                Endpoint = ApiEndpoint.Of(request.Url, (Method)request.Method)
             };
             await context.Permissions.AddAsync(permission, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
